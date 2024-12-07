@@ -1,13 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>promotions</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Promociones" [showMenuButton]="true"></app-header>
+<ion-content>
+  <ion-list>
+    @for (item of promotions; track $index) {
+    <ion-card>
+      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+      <ion-card-header>
+        <ion-card-title>{{item.title}}</ion-card-title>
+        <ion-card-subtitle>Fecha inicio: {{item.start.toDateString() | date: 'dd/MM/yyyy'}}</ion-card-subtitle>
+        <ion-card-subtitle>Fecha final: {{item.end.toDateString() | date: 'dd/MM/yyyy'}}</ion-card-subtitle>
+      </ion-card-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">promotions</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <ion-card-content>
+        {{item.description}}
+      </ion-card-content>
+    </ion-card>
+    }
+  </ion-list>
 </ion-content>

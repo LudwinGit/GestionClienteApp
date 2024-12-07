@@ -1,13 +1,51 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>quotas</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Cuotas" [backButton]="'/main/orders'"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">quotas</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  @if (order) {
+  <div class="card-points card-order">
+    <div class="detail-points">
+      <div class="type-point">
+        Número de pedido: {{order.no}}
+      </div>
+      <div class="description-point">
+        Solicitado: {{order.date.toDateString() | date: 'dd/MM/yyyy'}}
+      </div>
+      <div class="description-point">
+        Total de {{order.total_quotas}} cuotas
+      </div>
+    </div>
+    <div class="value-points">
+      {{order.total | currency: 'Q '}}
+    </div>
+  </div>
+  }
+  <ion-list>
+    @for (item of quotas; track $index) {
+    <ion-item>
+      <div class="card-points">
+        <div class="detail-points">
+          <div class="type-point">
+            Cuota No. {{item.no}}
+          </div>
+          <div class="description-point">
+            Pago {{item.no}}/{{item.total_quotas}}
+          </div>
+          @if(item.date_payment){
+          <div class="description-point">
+            Pagado - {{item.date_payment | date: 'dd/MM/yyyy'}}
+          </div>
+          }
+          @else {
+          <div class="description-point">
+            Fecha límite - {{item.date_limit| date: 'dd/MM/yyyy'}}
+          </div>
+          }
+        </div>
+        <div class="value-points">
+          {{item.total | currency: 'Q '}}
+        </div>
+      </div>
+    </ion-item>
+    }
+  </ion-list>
 </ion-content>

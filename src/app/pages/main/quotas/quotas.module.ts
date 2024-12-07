@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { QuotasPageRoutingModule } from './quotas-routing.module';
 
 import { QuotasPage } from './quotas.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    QuotasPageRoutingModule
+    QuotasPageRoutingModule,
+    SharedModule
   ],
   declarations: [QuotasPage]
 })
