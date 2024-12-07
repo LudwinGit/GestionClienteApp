@@ -1,15 +1,23 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NoAuthGuard } from './guards/no-auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full'
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: 'auth',
+    canActivate: [NoAuthGuard],
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthPageModule)
+  },
+  {
+    path: 'main',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/main/main.module').then(m => m.MainPageModule)
   },
 ];
 

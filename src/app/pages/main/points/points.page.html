@@ -1,0 +1,40 @@
+<app-header title="Puntos" [showMenuButton]="true"></app-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
+    <div class="title1-m text-center">A continuación se te detalla tus puntos <br> acumulados <br><br></div>
+    <div class="text-center text-info-1">Tienes al día de hoy un acumulado:</div>
+  </div>
+  <div class="container-balance mx-2 " color="primary">
+    <div class="d-flex justify-content-center align-items-end py-4">
+      <div class="text-info-0-m">Tienes disponible</div>
+      <div class="text-balance-m mx-2">{{ getTotalPoints() | number: '1.0-0'}}</div>
+      <div class="text-info-0-m">puntos</div>
+    </div>
+  </div>
+  <ion-button expand="block" shape="round">Canjear puntos</ion-button>
+  <ion-list>
+    @for (item of points; track $index) {
+    <ion-item>
+      <div class="card-points">
+        <div class="detail-points">
+          <div class="type-point">
+            @if(item.points > 0){
+            CREDITO DE PUNTOS
+            }
+            @else{
+            DEBITO DE PUNTOS
+            }
+          </div>
+          <div class="description-point">
+            {{item.date.toDateString() | date: 'dd/MM/yyyy'}} {{item.description}}
+          </div>
+        </div>
+        <div class="value-points" [ngClass]="{'credit': item.points > 0, 'debit': item.points < 0}">
+          {{item.points}}
+        </div>
+      </div>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>
