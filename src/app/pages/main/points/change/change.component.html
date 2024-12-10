@@ -1,0 +1,19 @@
+<app-header title="Canjear puntos" [isModal]="true"></app-header>
+<ion-content>
+    <div class="d-flex-center">
+        <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+            <app-custom-input [autocomplete]="'number'" icon="wallet-outline" [control]="form.controls.points"
+                type="number" label="Puntos"></app-custom-input>
+            @if(form.controls.points.errors && form.controls.points.touched){
+            <div class="validators">
+                <div *ngIf="form.controls.points.errors?.['required']">El valor es requerido</div>
+                <div *ngIf="form.controls.points.errors?.['min']">El valor es incorrecto</div>
+                <div *ngIf="form.controls.points.errors?.['max']">El valor no puede ser mayor a {{max}}</div>
+            </div>
+            }
+            <ion-button expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+                Canjear
+            </ion-button>
+        </form>
+    </div>
+</ion-content>

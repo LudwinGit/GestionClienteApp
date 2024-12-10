@@ -16,7 +16,7 @@ export class UtilsService {
 
   loadingController = inject(LoadingController)
   toastController = inject(ToastController)
-  // modalController = inject(ModalController)
+  modalController = inject(ModalController)
   alertController = inject(AlertController)
   router = inject(Router)
 
@@ -33,17 +33,17 @@ export class UtilsService {
   }
 
   // ===================== Modal =====================
-  // async presentModal(options: ModalOptions) {
-  //   const modal = await this.modalController.create(options);
-  //   await modal.present();
+  async presentModal(options: ModalOptions) {
+    const modal = await this.modalController.create(options);
+    await modal.present();
 
-  //   const { data } = await modal.onWillDismiss();
-  //   if (data) return data
-  // }
+    const { data } = await modal.onWillDismiss();
+    if (data) return data
+  }
 
-  // dismissModal(data?: any) {
-  //   return this.modalController.dismiss(data)
-  // }
+  dismissModal(data?: any) {
+    return this.modalController.dismiss(data)
+  }
 
   // ===================== Alert =====================
   async presentAlert(options: AlertOptions) {

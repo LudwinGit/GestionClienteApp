@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { orderBy } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { map, catchError } from 'rxjs';

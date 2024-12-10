@@ -7,6 +7,9 @@
       @if(showMenuButton){
       <ion-menu-button></ion-menu-button>
       }
+      @if(isModal){
+      <ion-button (click)="closeModal()"><ion-icon name="close-outline"></ion-icon></ion-button>
+      }
     </ion-buttons>
     <ion-title>
       <strong>{{title}}</strong>

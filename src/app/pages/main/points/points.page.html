@@ -12,7 +12,7 @@
       <div class="text-info-0-m">puntos</div>
     </div>
   </div>
-  <ion-button expand="block" shape="round">Canjear puntos</ion-button>
+  <ion-button expand="block" shape="round" (click)="changePoints()">Canjear puntos</ion-button>
   <ion-list>
     @for (item of points; track $index) {
     <ion-item>

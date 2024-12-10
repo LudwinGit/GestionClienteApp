@@ -1,0 +1,106 @@
+.container-balance {
+    background-color: #3f3ac2;
+    border-radius: 5px;
+    position: relative;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .text-info-0-m {
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 14px;
+    max-width: 75px;
+  }
+  
+  .text-balance-m {
+    font-size: 35px;
+    color: #ffffff;
+    line-height: 30px;
+  }
+  
+  .d-flex {
+    display: flex;
+  }
+  
+  .justify-content-center {
+    justify-content: center;
+  }
+  
+  .align-items-end {
+    align-items: flex-end;
+  }
+  
+  .mx-2 {
+    margin: 0 8px;
+  }
+  
+  .py-4 {
+    padding: 16px 0;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .title1-m {
+    color: #3f3ac2;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 600;
+  }
+  
+  .text-info-1 {
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .card-points {
+    background-color: #fff;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 5px 0;
+  
+    .detail-points {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+  
+  .card-order {
+    border: 1px solid rgba($color: #000000, $alpha: 0.1);
+    padding: 20px 10px;
+    
+  }
+  
+  .type-point {
+    color: #3f3ac2;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+  }
+  
+  .description-point {
+    color: rgba($color: #000000, $alpha: 0.6);
+    font-size: 12px;
+  }
+  
+  .value-points {
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+  }
+  
+  .credit {
+    color: rgba($color: green, $alpha: 0.7);
+  }
+  
+  .debit {
+    color: rgba($color: red, $alpha: 0.7);
+  }
+  

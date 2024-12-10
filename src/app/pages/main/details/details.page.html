@@ -1,13 +1,47 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>details</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Detalles" [backButton]="'/main/orders'"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+    @if (order) {
+    <div class="card-points card-order">
+        <div class="detail-points">
+            <div class="type-point">
+                Número de pedido: {{order.no}}
+            </div>
+            <div class="description-point">
+                Solicitado: {{order.date.toDateString() | date: 'dd/MM/yyyy'}}
+            </div>
+            <div class="description-point">
+                Total de {{order.total_quotas}} cuotas
+            </div>
+        </div>
+        <div class="value-points">
+            {{order.total | currency: 'Q '}}
+        </div>
+    </div>
+    }
+    <ion-list>
+        @for (item of details; track $index) {
+        <ion-item>
+            <div class="card-points">
+                <div class="detail-points">
+                    <div class="type-point">
+                        Código. {{item.code}}
+                    </div>
+                    <div class="description-point">
+                        Descripción {{item.description}}
+                    </div>
+                    <div class="description-point">
+                        Discount: {{item.discount}}
+                    </div>
+                    <div class="description-point">
+                        Total {{item.total}}
+                    </div>
+                </div>
+                <div class="value-points">
+                    {{item.total - item.discount | currency: 'Q '}}
+                </div>
+            </div>
+        </ion-item>
+        }
+    </ion-list>
 </ion-content>

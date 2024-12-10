@@ -8,6 +8,7 @@ import { PointsPageRoutingModule } from './points-routing.module';
 
 import { PointsPage } from './points.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ChangeComponent } from './change/change.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     PointsPageRoutingModule,
     SharedModule
   ],
-  declarations: [PointsPage]
+  declarations: [PointsPage, ChangeComponent]
 })
 export class PointsPageModule {}
