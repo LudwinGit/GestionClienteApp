@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Timestamp } from '@angular/fire/firestore';
 import {
   LoadingController,
   ModalController,
@@ -9,6 +10,9 @@ import {
   ModalOptions,
   AlertOptions
 } from '@ionic/angular';
+import { Preferences } from '@capacitor/preferences';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -61,5 +65,28 @@ export class UtilsService {
 
   getFromLocalStorage(key: string) {
     return JSON.parse(localStorage.getItem(key)!);
+  }
+
+  // ======================================
+  getTimestampCurrent(): Timestamp {
+    const guatemalaTime = new Date().toLocaleString('en-US', {
+      timeZone: 'America/Guatemala',
+    });
+
+    const localDate = new Date(guatemalaTime);
+    return Timestamp.fromDate(localDate);
+  }
+
+  async setKeyValuePersist(key: string, value: string) {
+    await Preferences.set({ key, value })
+  }
+
+  async getKeyValuePersist(key: string) {
+    const { value } = await Preferences.get({ key })
+    return value
+  }
+
+  async removeKeyValuePersist(key: string) {
+    await Preferences.remove({ key })
   }
 }

@@ -39,27 +39,19 @@ export class ChangeComponent {
   })
 
   async submit() {
-    if (this.getMaxPoints() < this.form.value.points) {
-      this.utilSvc.presentToast({
-        message: 'No tienes suficientes puntos',
-        color: 'danger',
-        duration: 2500
-      })
-      this.utilSvc.dismissModal({ success: true })
-      return
-    }
+    // if (this.getMaxPoints() < this.form.value.points) {
+    //   this.utilSvc.presentToast({
+    //     message: 'No tienes suficientes puntos',
+    //     color: 'danger',
+    //     duration: 2500
+    //   })
+    //   this.utilSvc.dismissModal({ success: true })
+    //   return
+    // }
 
     if (this.form.valid) {
       let path = `points`
-
-      const guatemalaTime = new Date().toLocaleString('en-US', {
-        timeZone: 'America/Guatemala',
-      });
-
-      const localDate = new Date(guatemalaTime);
-      const firebaseTimestamp = Timestamp.fromDate(localDate);
-
-      this.form.controls.date.setValue(firebaseTimestamp)
+      this.form.controls.date.setValue(this.utilSvc.getTimestampCurrent())
       this.form.controls.points.setValue(this.form.value.points * -1)
       const loading = await this.utilSvc.loading('Guardando...')
       await loading.present()

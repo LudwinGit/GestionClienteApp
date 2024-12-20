@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { UtilsService } from './utils.service';
+import { Geolocation } from '@capacitor/geolocation';
 import { Auth, signInWithEmailAndPassword, sendPasswordResetEmail } from '@angular/fire/auth';
-import { getFirestore, doc, setDoc, getDoc, collection, query, collectionData, updateDoc, addDoc } from '@angular/fire/firestore';
+import { getFirestore, doc, setDoc, getDoc, collection, query, collectionData, updateDoc, addDoc, GeoPoint } from '@angular/fire/firestore';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 
@@ -52,5 +53,18 @@ export class FirebaseService {
 
   addDocument(path: string, data: any) {
     return addDoc(collection(getFirestore(), path), data)
+  }
+
+  // ===================Geolocalizacion=============================
+  async setSessionCurrentLocation(uid: string, deviceId: string) {
+    const location = await Geolocation.getCurrentPosition();
+    const geoPoint = new GeoPoint(location.coords.latitude, location.coords.longitude)
+    let path = `customers/${uid}/sessions`
+    this.addDocument(path, {
+      'coordinates': geoPoint,
+      'date': this.util.getTimestampCurrent(),
+      'json': JSON.stringify(location),
+      'device': deviceId
+    }).then(() => { })
   }
 }

@@ -28,4 +28,17 @@
       </ion-button>
     </form>
   </div>
+  <ion-button expand="block" mode="ios" class="submit" type="button" (click)="getData()">
+    datos
+  </ion-button>
+  <div>
+    usuario actual: {{usuario}}
+  </div>
+  <div>
+    {{device | json}}
+  </div>
+
+  <div>
+    {{deviceInfo | json}}
+  </div>
 </ion-content>
