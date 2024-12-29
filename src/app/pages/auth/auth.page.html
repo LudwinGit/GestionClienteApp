@@ -1,4 +1,6 @@
+@if (!web) {
 <app-header title="Login"></app-header>
+}
 <ion-content>
   <div class="d-flex-center">
     <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
@@ -27,18 +29,5 @@
         Ingresar
       </ion-button>
     </form>
-  </div>
-  <ion-button expand="block" mode="ios" class="submit" type="button" (click)="getData()">
-    datos
-  </ion-button>
-  <div>
-    usuario actual: {{usuario}}
-  </div>
-  <div>
-    {{device | json}}
-  </div>
-
-  <div>
-    {{deviceInfo | json}}
   </div>
 </ion-content>

@@ -19,6 +19,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/main/main.module').then(m => m.MainPageModule)
   },
+  {
+    path: 'console',
+    loadChildren: () => import('./pages/console/console.module').then(m => m.ConsolePageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'auth',
+  }
 ];
 
 @NgModule({

@@ -5,7 +5,7 @@ import { FirebaseService } from 'src/app/common/services/firebase.service';
 import { UtilsService } from 'src/app/common/services/utils.service';
 import { Device, DeviceId, DeviceInfo } from '@capacitor/device';
 import { Geolocation } from '@capacitor/geolocation';
-import { GeoPoint } from '@angular/fire/firestore';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-auth',
@@ -18,6 +18,7 @@ export class AuthPage {
   usuario: string = "ninguno"
   device: DeviceId
   deviceInfo: DeviceInfo
+  web: boolean = Capacitor.getPlatform() === 'web'
 
 
   form = new FormGroup({

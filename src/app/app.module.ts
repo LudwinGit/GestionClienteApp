@@ -1,4 +1,4 @@
-import { importProvidersFrom, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -12,7 +12,6 @@ import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingServ
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [AppComponent],
