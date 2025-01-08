@@ -12,6 +12,9 @@ import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingServ
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +27,16 @@ import { environment } from 'src/environments/environment';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+        options: {
+          dark: false,
+          darkModeSelector: false || 'none'
+        }
+      }
+    })
   ],
   bootstrap: [AppComponent],
 })

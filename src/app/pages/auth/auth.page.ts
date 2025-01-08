@@ -31,12 +31,18 @@ export class AuthPage {
       const loading = await this.utilsSvc.loading('Ingresando...')
       await loading.present()
       this.firebaseSvc.signIn(this.form.value as User).then(res => {
+        console.log('====================================');
+        console.log(res);
+        console.log('====================================');
         if (res.user) {
           this.setUidDevice(res.user.uid)
           this.getUserInfo(res.user.uid)
         }
       })
         .catch(err => {
+          console.log('====================================');
+          console.log(err);
+          console.log('====================================');
           this.utilsSvc.presentToast({
             message: 'El correo o la contraseña son incorrectos',
             color: 'danger',

@@ -1,13 +1,49 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>clients</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header title="Clientes instalados" [showMenuButton]="true"></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">clients</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <p-table #dt2 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
+    [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    [tableStyle]="{ 'min-width': '75rem' }">
+    <ng-template #header>
+      <tr>
+        <th scope="col" style="width:25%">Código</th>
+        <th scope="col" style="width:25%">Nombre</th>
+        <th scope="col" style="width:25%">Correo</th>
+        <th scope="col" style="width:25%">Acciones</th>
+      </tr>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" style="width:25%">
+          <p-columnFilter type="text" field="name" placeholder="Buscar por nombre" ariaLabel="Filter Name"
+            [matchMode]="'contains'"></p-columnFilter>
+        </th>
+        <th scope="col" style="width:25%">
+          <p-columnFilter type="text" field="email" placeholder="Buscar por correo" ariaLabel="Filter Email"
+            [matchMode]="'contains'"></p-columnFilter>
+        </th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-customer>
+      <tr>
+        <td>
+          {{ customer.uid }}
+        </td>
+        <td>
+          {{ customer.name }}
+        </td>
+        <td>
+          {{ customer.email }}
+        </td>
+        <td>
+          <ion-button fill="outline" [routerLink]="'/console/point/'+customer.id">Ver ubicaciones</ion-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </ion-content>

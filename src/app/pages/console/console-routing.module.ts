@@ -20,6 +20,10 @@ const routes: Routes = [
         path: 'balances',
         loadChildren: () => import('./balances/balance.module').then(m => m.BalancePageModule)
       },
+      {
+        path: 'point/:id',
+        loadChildren: () => import('./point/point.module').then(m => m.PointPageModule)
+      },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]
   }

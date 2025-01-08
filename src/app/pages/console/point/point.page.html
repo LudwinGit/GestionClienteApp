@@ -1,0 +1,6 @@
+<app-header title="Ubicación" [showMenuButton]="true" [backButton]="'/console/clients'"></app-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+    <p class="text-title">Ultimas ubicaciones</p>
+    <capacitor-google-maps #map class="config"></capacitor-google-maps>
+</ion-content>

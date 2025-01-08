@@ -30,7 +30,6 @@ export class DetailsPage {
   }
 
   getDetails() {
-
     let path = `orders/${this.id}/details`
     this.firebaseSvc.getCollectionChanges(path).pipe(
       map((items: any[]) => items.map(item => ({
