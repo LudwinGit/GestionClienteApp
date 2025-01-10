@@ -1,6 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { where } from '@angular/fire/firestore';
-import { map, catchError } from 'rxjs';
 import { Customer } from 'src/app/common/models/customer.model';
 import { User } from 'src/app/common/models/user.model';
 import { FirebaseService } from 'src/app/common/services/firebase.service';

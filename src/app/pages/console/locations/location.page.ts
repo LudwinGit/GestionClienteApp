@@ -11,11 +11,11 @@ import { limit } from '@firebase/firestore';
 const apiKey = environment.firebase.apiKey;
 
 @Component({
-  selector: 'app-point',
-  templateUrl: './point.page.html',
-  styleUrls: ['./point.page.scss'],
+  selector: 'app-location',
+  templateUrl: './location.page.html',
+  styleUrls: ['./location.page.scss'],
 })
-export class PointPage {
+export class LocationPage {
   @ViewChild('map')
   mapRef: ElementRef<HTMLElement>;
   newMap: GoogleMap;

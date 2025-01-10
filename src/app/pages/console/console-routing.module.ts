@@ -21,12 +21,21 @@ const routes: Routes = [
         loadChildren: () => import('./balances/balance.module').then(m => m.BalancePageModule)
       },
       {
-        path: 'point/:id',
-        loadChildren: () => import('./point/point.module').then(m => m.PointPageModule)
+        path: 'location/:id',
+        loadChildren: () => import('./locations/location.module').then(m => m.LocationPageModule)
+      },
+      {
+        path: 'points/:id',
+        loadChildren: () => import('./points/points.module').then(m => m.PointsPageModule)
       },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]
+  },
+  {
+    path: 'points',
+    loadChildren: () => import('./points/points.module').then(m => m.PointsPageModule)
   }
+
 ];
 
 @NgModule({

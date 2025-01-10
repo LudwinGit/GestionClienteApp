@@ -32,12 +32,12 @@
           </div>
           @if(item.date_payment){
           <div class="description-point">
-            Pagado - {{item.date_payment | date: 'dd/MM/yyyy'}}
+            Pagado - {{item.date_payment.toDate()| date: 'dd/MM/yyyy'}}
           </div>
           }
           @else {
           <div class="description-point">
-            Fecha límite - {{item.date_limit| date: 'dd/MM/yyyy'}}
+            Fecha límite - {{item.date_limit.toDate()| date: 'dd/MM/yyyy'}}
           </div>
           }
         </div>

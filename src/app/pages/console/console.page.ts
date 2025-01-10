@@ -17,8 +17,7 @@ export class ConsolePage implements OnInit {
   pages = [
     { title: 'Inicio', url: '/console/home', icon: 'home-outline' },
     { title: 'Clientes', url: '/console/clients', icon: 'documents-outline' },
-    { title: 'Saldos', url: '/console/balances', icon: 'diamond-outline' },
-    { title: 'Promociones', url: '/main/promotions', icon: 'sparkles-outline' },
+    { title: 'Saldos', url: '/console/balances', icon: 'diamond-outline' }
   ]
 
   currentPath: string = ''

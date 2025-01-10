@@ -1,13 +1,67 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>balance</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">balance</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<app-header title="Cuotas atrasadas" [showMenuButton]="true">
+</app-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <p-table #dt2 [value]="quotas_customer" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+    [loading]="loading" [paginator]="true" [globalFilterFields]="['order_no', 'customer_name', 'customer_email']"
+    [tableStyle]="{ 'min-width': '75rem' }">
+    <ng-template #header>
+      <tr>
+        <th scope="col">Orden</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Cuota</th>
+        <th scope="col">Vencimiento</th>
+        <th scope="col">Total</th>
+        <th scope="col">Acciones</th>
+      </tr>
+      <tr>
+        <th scope="col">
+          <p-columnFilter type="text" field="order_no" placeholder="Buscar por orden" ariaLabel="Filter Orden"
+            [matchMode]="'contains'"></p-columnFilter>
+        </th>
+        <th scope="col">
+          <p-columnFilter type="text" field="customer_name" placeholder="Buscar por nombre" ariaLabel="Filter Name"
+            [matchMode]="'contains'"></p-columnFilter>
+        </th>
+        <th scope="col">
+          <p-columnFilter type="text" field="customer_email" placeholder="Buscar por correo" ariaLabel="Filter Email"
+            [matchMode]="'contains'"></p-columnFilter>
+        </th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-customer>
+      <tr>
+        <td>
+          {{ customer.order_no }}
+        </td>
+        <td>
+          {{ customer.customer_name }}
+        </td>
+        <td>
+          {{ customer.customer_email }}
+        </td>
+        <td>
+          {{ customer.no }} / {{ customer.total_quotas }}
+        </td>
+        <td>
+          {{ customer.date_limit.toDate()| date: 'dd/MM/yyyy' }}
+        </td>
+        <td>
+          {{ customer.total | currency: 'Q ' }}
+        </td>
+        <td>
+          <ion-button fill="outline" [routerLink]="'/console/point/'+customer.id">Ver ubicaciones</ion-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5">No hay clientes atrasados.</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </ion-content>

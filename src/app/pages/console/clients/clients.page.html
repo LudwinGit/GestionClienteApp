@@ -2,8 +2,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <p-table #dt2 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading"
-    [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-    [tableStyle]="{ 'min-width': '75rem' }">
+    [paginator]="true" [globalFilterFields]="['name', 'email']" [tableStyle]="{ 'min-width': '75rem' }">
     <ng-template #header>
       <tr>
         <th scope="col" style="width:25%">Código</th>
@@ -36,7 +35,15 @@
           {{ customer.email }}
         </td>
         <td>
-          <ion-button fill="outline" [routerLink]="'/console/point/'+customer.id">Ver ubicaciones</ion-button>
+          <ion-button [routerLink]="'/console/location/'+customer.id" size="default" color="danger">
+            <ion-icon slot="icon-only" ios="location-outline" md="settings-sharp"></ion-icon>
+          </ion-button>
+          <ion-button [routerLink]="'/console/points/'+customer.id" size="default" color="tertiary">
+            <ion-icon slot="icon-only" ios="wallet-outline" md="settings-sharp"></ion-icon>
+          </ion-button>
+          <ion-button [routerLink]="'/console/point/'+customer.id" size="default" color="medium">
+            <ion-icon slot="icon-only" ios="newspaper-outline" md="settings-sharp"></ion-icon>
+          </ion-button>
         </td>
       </tr>
     </ng-template>

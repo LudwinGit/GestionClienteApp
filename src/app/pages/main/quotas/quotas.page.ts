@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { orderBy } from '@angular/fire/firestore';
+import { orderBy, where } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { map, catchError } from 'rxjs';
 import { Order } from 'src/app/common/models/order.model';
@@ -26,21 +26,22 @@ export class QuotasPage {
   }
 
   getQuotas() {
-    let path = `orders/${this.id}/quotas`
-    this.firebaseSvc.getCollectionChanges(path, orderBy('no', 'asc')).pipe(
-      map((items: any[]) => items.map(item => ({
-        ...item,
-        date_limit: item.date_limit?.toDate(),
-        date_payment: item.date_payment?.toDate()
-      }))),
-      catchError(error => {
-        console.log(error)
-        return []
-      })
-    )
+    let path = `quotas`
+    this.firebaseSvc
+      .getCollectionChanges(path, where('order_uid', '==', this.id), orderBy('no', 'asc'))
+      .pipe(
+        map((items: any[]) => items.map(item => ({
+          ...item,
+        }))),
+        catchError(error => {
+          console.log(error)
+          return []
+        })
+      )
       .subscribe((data: any[]) => {
         this.quotas = data
       })
+
     this.getOrder()
   }
 
