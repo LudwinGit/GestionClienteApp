@@ -1,9 +1,9 @@
 import { Timestamp } from "@angular/fire/firestore"
 
-export interface Quota{
+export interface Installment{
     no: number
     total: number
-    total_quotas: number
+    total_installments: number
     date_limit: Timestamp
     date_payment: Timestamp
     status: string

@@ -4,20 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PointsPageRoutingModule } from './points-routing.module';
+import { InstallmentsPageRoutingModule } from './installments-routing.module';
 
-import { PointsPage } from './points.page';
+import { InstallmentsPage } from './installments.page';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AddComponent } from './add/add.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PointsPageRoutingModule,
+    InstallmentsPageRoutingModule,
     SharedModule
   ],
-  declarations: [PointsPage, AddComponent]
+  declarations: [InstallmentsPage]
 })
-export class PointsPageModule {}
+export class InstallmentsPageModule {}

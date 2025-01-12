@@ -28,7 +28,7 @@ export class FirebaseService {
 
   signOut() {
     this.getAuth().signOut();
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     this.util.routerLink('/auth');
   }
 

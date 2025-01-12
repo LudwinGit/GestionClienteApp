@@ -11,7 +11,7 @@
         Solicitado: {{order.date.toDateString() | date: 'dd/MM/yyyy'}}
       </div>
       <div class="description-point">
-        Total de {{order.total_quotas}} cuotas
+        Total de {{order.total_installments}} cuotas
       </div>
     </div>
     <div class="value-points">
@@ -28,7 +28,7 @@
             Cuota No. {{item.no}}
           </div>
           <div class="description-point">
-            Pago {{item.no}}/{{item.total_quotas}}
+            Pago {{item.no}}/{{item.total_installments}}
           </div>
           @if(item.date_payment){
           <div class="description-point">

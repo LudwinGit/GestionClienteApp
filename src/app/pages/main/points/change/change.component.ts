@@ -39,15 +39,15 @@ export class ChangeComponent {
   })
 
   async submit() {
-    // if (this.getMaxPoints() < this.form.value.points) {
-    //   this.utilSvc.presentToast({
-    //     message: 'No tienes suficientes puntos',
-    //     color: 'danger',
-    //     duration: 2500
-    //   })
-    //   this.utilSvc.dismissModal({ success: true })
-    //   return
-    // }
+    if (this.getMaxPoints() < this.form.value.points) {
+      this.utilSvc.presentToast({
+        message: 'No tienes suficientes puntos',
+        color: 'danger',
+        duration: 2500
+      })
+      this.utilSvc.dismissModal({ success: true })
+      return
+    }
 
     if (this.form.valid) {
       let path = `points`

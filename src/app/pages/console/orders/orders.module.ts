@@ -4,20 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PointsPageRoutingModule } from './points-routing.module';
+import { OrdersPageRoutingModule } from './orders-routing.module';
 
-import { PointsPage } from './points.page';
+import { OrdersPage } from './orders.page';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AddComponent } from './add/add.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PointsPageRoutingModule,
-    SharedModule
+    OrdersPageRoutingModule,
+    SharedModule,
+    TableModule
   ],
-  declarations: [PointsPage, AddComponent]
+  declarations: [OrdersPage]
 })
-export class PointsPageModule {}
+export class OrdersPageModule {}

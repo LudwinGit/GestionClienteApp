@@ -28,14 +28,17 @@ const routes: Routes = [
         path: 'points/:id',
         loadChildren: () => import('./points/points.module').then(m => m.PointsPageModule)
       },
+      {
+        path: 'orders/:id',
+        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersPageModule)
+      },
+      {
+        path: 'installments/:id',
+        loadChildren: () => import('./installments/installments.module').then(m => m.InstallmentsPageModule)
+      },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
-  {
-    path: 'points',
-    loadChildren: () => import('./points/points.module').then(m => m.PointsPageModule)
-  }
-
 ];
 
 @NgModule({

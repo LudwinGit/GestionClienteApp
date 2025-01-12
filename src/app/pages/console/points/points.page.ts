@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs';
 import { Point } from 'src/app/common/models/point.model';
 import { FirebaseService } from 'src/app/common/services/firebase.service';
 import { UtilsService } from 'src/app/common/services/utils.service';
+import { AddComponent } from './add/add.component';
 
 @Component({
   selector: 'app-points',
@@ -41,5 +42,17 @@ export class PointsPage {
       .subscribe((data: any[]) => {
         this.points = data
       })
+  }
+
+  getTotalPoints() {
+    return this.points.reduce((total, point) => total + point.points, 0)
+  }
+
+  async addPoints() {
+    await this.utilSvc.presentModal({
+      component: AddComponent,
+      cssClass: 'add-update-modal',
+      componentProps: { uid: this.id }
+    })
   }
 }

@@ -60,11 +60,11 @@ export class UtilsService {
   }
 
   saveInLocalStorage(key: string, value: any) {
-    return localStorage.setItem(key, JSON.stringify(value));
+    return sessionStorage.setItem(key, JSON.stringify(value));
   }
 
   getFromLocalStorage(key: string) {
-    return JSON.parse(localStorage.getItem(key)!);
+    return JSON.parse(sessionStorage.getItem(key));
   }
 
   // ======================================

@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): MaybeAsync<GuardResult> {
 
-    let user = localStorage.getItem('user')
+    let user = sessionStorage.getItem('user')
 
     return new Promise((resolve) => {
       this.firebaseService.getAuth().onAuthStateChanged((auth) => {

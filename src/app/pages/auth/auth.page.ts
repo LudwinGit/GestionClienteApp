@@ -20,29 +20,24 @@ export class AuthPage {
   deviceInfo: DeviceInfo
   web: boolean = Capacitor.getPlatform() === 'web'
 
-
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
+
+  currentUser: User
 
   async submit() {
     if (this.form.valid) {
       const loading = await this.utilsSvc.loading('Ingresando...')
       await loading.present()
       this.firebaseSvc.signIn(this.form.value as User).then(res => {
-        console.log('====================================');
-        console.log(res);
-        console.log('====================================');
         if (res.user) {
           this.setUidDevice(res.user.uid)
           this.getUserInfo(res.user.uid)
         }
       })
         .catch(err => {
-          console.log('====================================');
-          console.log(err);
-          console.log('====================================');
           this.utilsSvc.presentToast({
             message: 'El correo o la contraseña son incorrectos',
             color: 'danger',
@@ -52,6 +47,29 @@ export class AuthPage {
         .finally(() => {
           loading.dismiss()
         });
+    }
+  }
+
+  async submitP() {
+    if (this.form.valid) {
+      const loading = await this.utilsSvc.loading('Ingresando...')
+      await loading.present()
+      try {
+        const res = await this.firebaseSvc.signIn(this.form.value as User);
+        if (res.user) {
+          await this.setUidDeviceP(res.user.uid)
+          await this.getUserInfoP(res.user.uid)
+        }
+      } catch (error) {
+        this.utilsSvc.presentToast({
+          message: 'El correo o la contraseña son incorrectos',
+          color: 'danger',
+          duration: 2000,
+        });
+      }
+      finally {
+        loading.dismiss()
+      }
     }
   }
 
@@ -90,6 +108,32 @@ export class AuthPage {
 
   }
 
+  async getUserInfoP(uid: string) {
+    try {
+      const path = `users/${uid}`;
+      const user = (await this.firebaseSvc.getDocument(path)) as User;
+      this.currentUser = user
+      this.utilsSvc.saveInLocalStorage('user', user);
+      this.utilsSvc.routerLink('/main/home');
+      this.form.reset();
+
+      this.utilsSvc.presentToast({
+        message: `Bienvenido ${user.name}`,
+        duration: 500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'alert-circle-outline',
+      });
+    } catch (error) {
+      console.error('Error al obtener la información del usuario:', error);
+      this.utilsSvc.presentToast({
+        message: error.message || 'Error al obtener la información del usuario.',
+        color: 'danger',
+        duration: 2500,
+      });
+    }
+  }
+
   async getData() {
     this.device = await Device.getId();
     this.deviceInfo = await Device.getInfo();
@@ -113,6 +157,39 @@ export class AuthPage {
       }
       this.firebaseSvc.setDocument(path, ob).then(() => { })
       this.firebaseSvc.setSessionCurrentLocation(uid, deviceId.identifier).then(() => { })
+    }
+  }
+
+  async setUidDeviceP(uid: string) {
+    try {
+      const user = await this.utilsSvc.getKeyValuePersist("user")
+      if (!(user && user == uid)) {
+        const deviceId = await Device.getId();
+        const info = await Device.getInfo();
+
+        await this.utilsSvc.removeKeyValuePersist("user")
+        await this.utilsSvc.setKeyValuePersist("user", uid)
+        await this.utilsSvc.setKeyValuePersist("device", deviceId.identifier)
+
+        let path = `customers/${uid}/devices/${deviceId.identifier}`
+        const ob = {
+          name: info.name ?? "",
+          model: info.model,
+          platform: info.platform
+        }
+
+        await Promise.all([
+          this.firebaseSvc.setDocument(path, ob),
+          this.firebaseSvc.setSessionCurrentLocation(uid, deviceId.identifier)
+        ])
+      }
+    } catch (error) {
+      console.error('Error al configurar el UID del dispositivo:', error);
+      this.utilsSvc.presentToast({
+        message: 'Error al configurar el dispositivo.',
+        color: 'danger',
+        duration: 2000,
+      });
     }
   }
 }

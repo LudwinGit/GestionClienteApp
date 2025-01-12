@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { where } from '@angular/fire/firestore';
 import { Customer } from 'src/app/common/models/customer.model';
-import { Quota } from 'src/app/common/models/quota.model';
+import { Installment } from 'src/app/common/models/installment.model';
 import { User } from 'src/app/common/models/user.model';
 import { FirebaseService } from 'src/app/common/services/firebase.service';
 import { UtilsService } from 'src/app/common/services/utils.service';
@@ -12,21 +12,17 @@ import { UtilsService } from 'src/app/common/services/utils.service';
   styleUrls: ['./balance.page.scss'],
 })
 export class BalancePage {
-  quotas_customer: Quota[] = []
+  customer_installments: Installment[] = []
   loading: boolean = true;
   firebaseSvc = inject(FirebaseService)
   utilSvc = inject(UtilsService)
 
-  user(): User {
-    return this.utilSvc.getFromLocalStorage('user');
-  }
-
   ionViewWillEnter() {
-    this.getOverdueQuotas()
+    this.getOverdueInstallments()
   }
 
-  getOverdueQuotas() {
-    let path = `quotas`
+  getOverdueInstallments() {
+    let path = `installments`
 
     this.firebaseSvc
       .getCollectionChanges(path,
@@ -34,8 +30,8 @@ export class BalancePage {
         where("status", "==", "PENDIENTE")
       )
       .subscribe({
-        next: (res: Quota[]) => {
-          this.quotas_customer = res;
+        next: (res: Installment[]) => {
+          this.customer_installments = res;
           this.loading = false;
         },
         error: (error) => {

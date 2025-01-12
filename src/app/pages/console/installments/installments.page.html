@@ -1,4 +1,4 @@
-<app-header title="Detalles" [backButton]="'/main/orders'"></app-header>
+<app-header title="Cuotas"></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
     @if (order) {
@@ -19,26 +19,31 @@
         </div>
     </div>
     }
+
     <ion-list>
-        @for (item of details; track $index) {
+        @for (item of quotas; track $index) {
         <ion-item>
             <div class="card-points">
                 <div class="detail-points">
                     <div class="type-point">
-                        Código. {{item.code}}
+                        Cuota No. {{item.no}}
                     </div>
                     <div class="description-point">
-                        Descripción {{item.description}}
+                        Pago {{item.no}}/{{item.total_installments}}
                     </div>
+                    @if(item.date_payment){
                     <div class="description-point">
-                        Discount: {{item.discount}}
+                        Pagado - {{item.date_payment.toDate()| date: 'dd/MM/yyyy'}}
                     </div>
+                    }
+                    @else {
                     <div class="description-point">
-                        Total {{item.total}}
+                        Fecha límite - {{item.date_limit.toDate()| date: 'dd/MM/yyyy'}}
                     </div>
+                    }
                 </div>
                 <div class="value-points">
-                    {{item.total - item.discount | currency: 'Q '}}
+                    {{item.total | currency: 'Q '}}
                 </div>
             </div>
         </ion-item>

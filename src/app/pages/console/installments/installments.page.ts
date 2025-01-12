@@ -1,18 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { orderBy, where } from '@angular/fire/firestore';
+import { where, orderBy } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { map, catchError } from 'rxjs';
-import { Order } from 'src/app/common/models/order.model';
 import { Installment } from 'src/app/common/models/installment.model';
+import { Order } from 'src/app/common/models/order.model';
 import { FirebaseService } from 'src/app/common/services/firebase.service';
 import { UtilsService } from 'src/app/common/services/utils.service';
 
 @Component({
-  selector: 'app-quotas',
-  templateUrl: './quotas.page.html',
-  styleUrls: ['./quotas.page.scss'],
+  selector: 'app-installments',
+  templateUrl: './installments.page.html',
+  styleUrls: ['./installments.page.scss'],
 })
-export class QuotasPage {
+export class InstallmentsPage {
   firebaseSvc = inject(FirebaseService)
   utilSvc = inject(UtilsService)
   route = inject(ActivatedRoute)
@@ -22,10 +22,10 @@ export class QuotasPage {
   order: Order
 
   ionViewWillEnter() {
-    this.getQuotas()
+    this.getInstallments()
   }
 
-  getQuotas() {
+  getInstallments() {
     let path = `installments`
     this.firebaseSvc
       .getCollectionChanges(path, where('order_uid', '==', this.id), orderBy('no', 'asc'))

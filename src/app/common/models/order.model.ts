@@ -5,5 +5,7 @@ export interface Order {
     total: number;
     discount: number;
     no: string;
-    total_quotas: number
+    total_installments: number
+    paid_installments: number
+    customer_uid: string
 }

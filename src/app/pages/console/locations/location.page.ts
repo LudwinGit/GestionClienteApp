@@ -26,10 +26,6 @@ export class LocationPage {
   customer: Customer
   defaultGeoPoin: GeoPoint
 
-  user(): User {
-    return this.utilSvc.getFromLocalStorage('user');
-  }
-
   ionViewWillEnter() {
     this.getCustomer()
   }
