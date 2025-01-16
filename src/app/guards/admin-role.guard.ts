@@ -1,11 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
 import { FirebaseService } from '../common/services/firebase.service';
 import { UtilsService } from '../common/services/utils.service';
-import { User } from '../common/models/user.model';
 
 @Injectable({ providedIn: 'root' })
-export class NoAuthGuard implements CanActivate {
+export class AdminRoleGuard implements CanActivate {
 
   private readonly firebaseService = inject(FirebaseService);
   private readonly utilsSvc = inject(UtilsService);
@@ -14,15 +13,19 @@ export class NoAuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): MaybeAsync<GuardResult> {
 
+    let user = this.utilsSvc.getFromLocalStorage('user')
+
     return new Promise((resolve) => {
-      this.firebaseService.getAuth().onAuthStateChanged(async (auth) => {
-        if (!auth) resolve(true);
-        else {
-          if(!this.utilsSvc.getFromLocalStorage('user')){
-            const user = (await this.firebaseService.getDocument(`users/${auth.uid}`)) as User;
-            this.utilsSvc.saveInLocalStorage('user', user);
+      this.firebaseService.getAuth().onAuthStateChanged((auth) => {
+        if (auth) {
+          if (user && user.role == 'admin') resolve(true)
+          else {
+            this.utilsSvc.routerLink('/main');
+            resolve(false);
           }
-          this.utilsSvc.routerLink('/main/home');
+        }
+        else {
+          this.utilsSvc.routerLink('/auth');
           resolve(false);
         }
       })

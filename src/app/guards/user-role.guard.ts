@@ -4,7 +4,7 @@ import { FirebaseService } from '../common/services/firebase.service';
 import { UtilsService } from '../common/services/utils.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class UserRoleGuard implements CanActivate {
 
   private readonly firebaseService = inject(FirebaseService);
   private readonly utilsSvc = inject(UtilsService);
@@ -13,12 +13,16 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): MaybeAsync<GuardResult> {
 
-    let user = sessionStorage.getItem('user')
+    let user = this.utilsSvc.getFromLocalStorage('user')
 
     return new Promise((resolve) => {
       this.firebaseService.getAuth().onAuthStateChanged((auth) => {
         if (auth) {
-          if (user) resolve(true)
+          if (user && user.role == 'user') resolve(true)
+          else{
+            this.utilsSvc.routerLink('/console');
+            resolve(false);
+          }
         }
         else {
           this.utilsSvc.routerLink('/auth');

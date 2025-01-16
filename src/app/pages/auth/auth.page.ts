@@ -52,6 +52,7 @@ export class AuthPage {
 
   async submitP() {
     if (this.form.valid) {
+      // this.utilsSvc.removeFromLocalStorage('user')
       const loading = await this.utilsSvc.loading('Ingresando...')
       await loading.present()
       try {
@@ -114,16 +115,13 @@ export class AuthPage {
       const user = (await this.firebaseSvc.getDocument(path)) as User;
       this.currentUser = user
       this.utilsSvc.saveInLocalStorage('user', user);
-      this.utilsSvc.routerLink('/main/home');
       this.form.reset();
-
-      this.utilsSvc.presentToast({
-        message: `Bienvenido ${user.name}`,
-        duration: 500,
-        color: 'primary',
-        position: 'middle',
-        icon: 'alert-circle-outline',
-      });
+      if (user.role == "user") {
+        this.utilsSvc.routerLink('/main/home');
+      }
+      else if (user.role == "admin") {
+        this.utilsSvc.routerLink('/console/home');
+      }
     } catch (error) {
       console.error('Error al obtener la información del usuario:', error);
       this.utilsSvc.presentToast({

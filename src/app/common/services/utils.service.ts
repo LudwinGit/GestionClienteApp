@@ -67,6 +67,10 @@ export class UtilsService {
     return JSON.parse(sessionStorage.getItem(key));
   }
 
+  removeFromLocalStorage(key: string) {
+    return sessionStorage.removeItem(key);
+  }
+
   // ======================================
   getTimestampCurrent(): Timestamp {
     const guatemalaTime = new Date().toLocaleString('en-US', {
