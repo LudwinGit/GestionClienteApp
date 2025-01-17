@@ -41,6 +41,9 @@ export class LocationPage {
           .subscribe({
             next: (res: any[]) => {
               this.customer.sessions = res
+              console.log('====================================');
+              console.log(this.customer.sessions);
+              console.log('====================================');
               this.initMap()
             },
             error: (error) => {
@@ -65,7 +68,7 @@ export class LocationPage {
           lat: 15.7835,
           lng: -90.2308,
         },
-        zoom: 7, // The initial zoom level to be rendered by the map
+        zoom: 3, // The initial zoom level to be rendered by the map
       },
     });
 
