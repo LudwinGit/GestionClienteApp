@@ -17,16 +17,22 @@ export class AdminRoleGuard implements CanActivate {
 
     return new Promise((resolve) => {
       this.firebaseService.getAuth().onAuthStateChanged((auth) => {
-        if (auth) {
-          if (user && user.role == 'admin') resolve(true)
-          else {
+        if (auth && user) {
+          if(user.role == 'admin'){
+            resolve(true)
+          }
+          else if(user.role == 'user'){
             this.utilsSvc.routerLink('/main');
-            resolve(false);
+            resolve(false)
+          }
+          else{
+            this.firebaseService.signOut();
+            resolve(false)
           }
         }
         else {
           this.utilsSvc.routerLink('/auth');
-          resolve(false);
+          resolve(false)
         }
       })
     });

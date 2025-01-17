@@ -64,7 +64,11 @@ export class UtilsService {
   }
 
   getFromLocalStorage(key: string) {
-    return JSON.parse(sessionStorage.getItem(key));
+    const value = sessionStorage.getItem(key);
+    if(value && value !== 'undefined') {
+      return JSON.parse(value)
+    }
+    return null
   }
 
   removeFromLocalStorage(key: string) {

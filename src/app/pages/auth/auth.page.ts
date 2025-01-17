@@ -52,7 +52,6 @@ export class AuthPage {
 
   async submitP() {
     if (this.form.valid) {
-      // this.utilsSvc.removeFromLocalStorage('user')
       const loading = await this.utilsSvc.loading('Ingresando...')
       await loading.present()
       try {
@@ -60,6 +59,14 @@ export class AuthPage {
         if (res.user) {
           await this.setUidDeviceP(res.user.uid)
           await this.getUserInfoP(res.user.uid)
+
+          if (this.currentUser && this.currentUser.role === 'admin') {
+            this.utilsSvc.routerLink('/console')
+          }
+          if (this.currentUser && this.currentUser.role === 'user') {
+            this.utilsSvc.routerLink('/main')
+          }
+          
         }
       } catch (error) {
         this.utilsSvc.presentToast({
@@ -116,12 +123,6 @@ export class AuthPage {
       this.currentUser = user
       this.utilsSvc.saveInLocalStorage('user', user);
       this.form.reset();
-      if (user.role == "user") {
-        this.utilsSvc.routerLink('/main/home');
-      }
-      else if (user.role == "admin") {
-        this.utilsSvc.routerLink('/console/home');
-      }
     } catch (error) {
       console.error('Error al obtener la información del usuario:', error);
       this.utilsSvc.presentToast({

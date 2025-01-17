@@ -3,7 +3,7 @@ import { User } from 'src/app/common/models/user.model';
 import { UtilsService } from 'src/app/common/services/utils.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-home-main',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })

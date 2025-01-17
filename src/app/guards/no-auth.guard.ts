@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, RouterStateSnapshot } from '@angular/router';
 import { FirebaseService } from '../common/services/firebase.service';
 import { UtilsService } from '../common/services/utils.service';
-import { User } from '../common/models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class NoAuthGuard implements CanActivate {
@@ -13,17 +12,13 @@ export class NoAuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-
+    let user = this.utilsSvc.getFromLocalStorage('user')
     return new Promise((resolve) => {
-      this.firebaseService.getAuth().onAuthStateChanged(async (auth) => {
-        if (!auth) resolve(true);
+      this.firebaseService.getAuth().onAuthStateChanged((auth) => {
+        if (!auth || !user) resolve(true)
         else {
-          if(!this.utilsSvc.getFromLocalStorage('user')){
-            const user = (await this.firebaseService.getDocument(`users/${auth.uid}`)) as User;
-            this.utilsSvc.saveInLocalStorage('user', user);
-          }
-          this.utilsSvc.routerLink('/main/home');
-          resolve(false);
+          this.utilsSvc.routerLink('/main');
+          resolve(false)
         }
       })
     });
