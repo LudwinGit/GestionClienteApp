@@ -1,7 +1,12 @@
 <app-header title="Inicio" [showMenuButton]="true"></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <div class="welcome-container ion-text-center">
+  <div class="ion-text-center">
+    <div class="logo-container">
+      <div class="logo-background">
+        <app-logo></app-logo>
+      </div>
+    </div>
     <h1>¡Bienvenido{{ user()?.name ? ', ' + user()?.name : '' }}!</h1>
     <p class="welcome-message">
       Nos alegra verte en nuestro comercio. Explora nuestras ofertas y disfruta de una experiencia única.
